@@ -23,7 +23,7 @@ logger = logging.getLogger()
 
 
 def add_tokenizer_params(parser: argparse.ArgumentParser):
-    parser.add_argument("--do_lower_case", action='store_true',
+    parser.add_argument("--do_lower_case", action='store_true', default=False,
                         help="Whether to lower case the input text. True for uncased models, False for cased models.")
 
 
@@ -85,16 +85,6 @@ def add_cuda_params(parser: argparse.ArgumentParser):
     parser.add_argument('--fp16_opt_level', type=str, default='O1',
                         help="For fp16: Apex AMP optimization level selected in ['O0', 'O1', 'O2', and 'O3']."
                              "See details at https://nvidia.github.io/apex/amp.html")
-
-
-def add_reader_preprocessing_params(parser: argparse.ArgumentParser):
-    parser.add_argument("--gold_passages_src", type=str,
-                        help="File with the original dataset passages (json format). Required for train set")
-    parser.add_argument("--gold_passages_src_dev", type=str,
-                        help="File with the original dataset passages (json format). Required for dev set")
-    parser.add_argument("--num_workers", type=int, default=16,
-                        help="number of parallel processes to binarize reader data")
-
 
 def get_encoder_checkpoint_params_names():
     return ['do_lower_case', 'pretrained_model_cfg', 'encoder_model_type',

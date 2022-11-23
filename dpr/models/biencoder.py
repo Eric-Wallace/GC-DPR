@@ -28,7 +28,6 @@ from dpr.utils.data_utils import normalize_question
 logger = logging.getLogger(__name__)
 
 
-
 @dataclass
 class BiEncoderBatch:
     question_ids: T
@@ -41,10 +40,6 @@ class BiEncoderBatch:
     def _asdict(self):
         return self.__dict__
 
-
-
-
-
 def dot_product_scores(q_vectors: T, ctx_vectors: T) -> T:
     """
     calculates q->ctx scores for every row in ctx_vector
@@ -56,11 +51,9 @@ def dot_product_scores(q_vectors: T, ctx_vectors: T) -> T:
     r = torch.matmul(q_vectors, torch.transpose(ctx_vectors, 0, 1))
     return r
 
-
 def cosine_scores(q_vector: T, ctx_vectors: T):
     # q_vector: n1 x D, ctx_vectors: n2 x D, result n1 x n2
     return F.cosine_similarity(q_vector, ctx_vectors, dim=1)
-
 
 class BiEncoder(nn.Module):
     """ Bi-Encoder model component. Encapsulates query/question and context/passage encoders.
